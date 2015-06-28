@@ -258,7 +258,19 @@ namespace Walker.Map
         {
             return !(position.Row < 0 || position.Column < 0 || position.Row >= Height || position.Column >= Width);
         }
-            
+
+        public CoreGraphics.CGRect BoundingBoxForTileAtPosition (Position position)
+        {
+            // This is the middle bottom of the tile
+            CoreGraphics.CGPoint originPoint = PositionToPoint (position);
+            Tile t = TileAtPosition (position);
+            CoreGraphics.CGSize imageSize = t.Image.Size;
+
+            float x = (float)(originPoint.X - (imageSize.Width / 2.0f));
+            float y = (float)(originPoint.Y - imageSize.Height);
+
+            return new CoreGraphics.CGRect (x, y, imageSize.Width, imageSize.Height); 
+        }
     }
 }
 

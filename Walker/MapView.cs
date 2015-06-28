@@ -4,6 +4,8 @@ using System.Linq;
 using Foundation;
 using AppKit;
 
+using Walker.Map;
+
 namespace Walker
 {
     public partial class MapView : AppKit.NSView
@@ -42,14 +44,42 @@ namespace Walker
 
         #endregion
 
+        public override bool IsFlipped {
+            get {
+                return true;
+            }
+        }
+
         public override void DrawRect (CoreGraphics.CGRect dirtyRect)
         {
             base.DrawRect (dirtyRect);
-            var path = new NSBezierPath ();
-            path.AppendPathWithRect (dirtyRect);
-            NSColor.Red.SetFill ();
 
-            path.Fill ();
+            if (map == null) {
+                return;
+            }
+
+            for (int row = 0; row < map.Height; row++) {
+                for (int column = 0; column < map.Width; column++) {
+                    Map.Map.Position position = new Map.Map.Position { Row = row, Column = column };
+                    CoreGraphics.CGPoint point = map.PositionToPoint (position);
+                    Tile t = map.TileAtPosition (position);
+
+                    var bbox = map.BoundingBoxForTileAtPosition (position);
+                    bbox.X += (Bounds.Size.Width / 2);
+                    bbox.Y += (Bounds.Size.Height / 2);
+
+                    Console.WriteLine ("Bounding box: {0}", bbox);
+                    t.Image.DrawInRect (bbox, new CoreGraphics.CGRect (0.0, 0.0, t.Image.Size.Width, t.Image.Size.Height), 
+                        NSCompositingOperation.SourceOver, 1.0f);
+                }
+            }
+            /*
+            var path = new NSBezierPath ();
+            path.AppendPathWithRect (bbox);
+            NSColor.Red.SetStroke ();
+
+            path.Stroke ();
+*/
         }
     }
 }
