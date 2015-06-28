@@ -89,7 +89,7 @@ namespace Walker.Map
                 Console.WriteLine ("Error loading image: {0}", filename);
             }
             // There's nowhere that we're going to draw this that isn't flipped
-            Image.Flipped = true;
+            //Image.Flipped = true;
             Console.WriteLine ("Tile size: {0}", Image.Size);
             BaseOffset = 15.0f;
 

@@ -46,7 +46,7 @@ namespace Walker
 
         public override bool IsFlipped {
             get {
-                return true;
+                return false;
             }
         }
 
@@ -65,6 +65,8 @@ namespace Walker
                     Tile t = map.TileAtPosition (position);
 
                     var bbox = map.BoundingBoxForTileAtPosition (position);
+                    Console.WriteLine ("Bounding box 1: {0}", bbox);
+
                     bbox.X += (Bounds.Size.Width / 2);
                     bbox.Y += (Bounds.Size.Height / 2);
 
