@@ -234,7 +234,7 @@ namespace Walker.Map
         public Position PointToPosition (CoreGraphics.CGPoint point)
         {
             float row, column;
-            float y = (float)Math.Abs (point.Y - 65);
+            float y = (float)Math.Abs (point.Y /*- 65*/);
 
             row = ((y / 25f) - ((float)point.X / 50f)) / 2f;
             column = (((float)point.X / 50f) + (y / 25f)) / 2f;
@@ -267,7 +267,7 @@ namespace Walker.Map
             CoreGraphics.CGSize imageSize = t.Image.Size;
 
             float x = (float)(originPoint.X - (imageSize.Width / 2.0f));
-            float y = (float)(originPoint.Y - imageSize.Height);
+            float y = (float)(originPoint.Y - 65.0f);
 
             return new CoreGraphics.CGRect (x, y, imageSize.Width, imageSize.Height); 
         }
