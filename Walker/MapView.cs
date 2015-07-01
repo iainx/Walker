@@ -12,7 +12,7 @@ namespace Walker
     [Register("MapView")]
     public class MapView : AppKit.NSView
     {
-        Map.Map.Position? highlight;
+        MapViewOverlay overlay;
 
         Map.Map map;
         public Map.Map Map { 
@@ -21,6 +21,7 @@ namespace Walker
             } 
             set {
                 map = value;
+                overlay.Map = map;
                 InvalidateIntrinsicContentSize ();
                 UpdateMapViews ();
             } 
@@ -59,6 +60,17 @@ namespace Walker
                 this, null);
             TranslatesAutoresizingMaskIntoConstraints = false;
             AddTrackingArea (tracker);
+
+            overlay = new MapViewOverlay ();
+            overlay.TranslatesAutoresizingMaskIntoConstraints = false;
+            AddSubview (overlay);
+
+            var viewsDict = new NSDictionary ("overlay", overlay);
+            var constraints = NSLayoutConstraint.FromVisualFormat ("|[overlay]|", 0, null, viewsDict);
+            AddConstraints (constraints);
+
+            constraints = NSLayoutConstraint.FromVisualFormat ("V:|[overlay]|", 0, null, viewsDict);
+            AddConstraints (constraints);
         }
 
         #endregion
@@ -86,7 +98,7 @@ namespace Walker
                     Console.WriteLine ("{0}", point);
                     Console.WriteLine ("bbox: {0}", bbox);
                     NSImageView tileView = new NSImageView (bbox) {Image = t.Image, TranslatesAutoresizingMaskIntoConstraints = false};
-                    AddSubview (tileView);
+                    AddSubview (tileView, NSWindowOrderingMode.Below, overlay);
 
                     var constraint = NSLayoutConstraint.Create (this,
                                          NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
@@ -117,13 +129,16 @@ namespace Walker
 
             var locationInView = ConvertPointFromView (theEvent.LocationInWindow, null);
 
-            Console.WriteLine (locationInView.ToString () + " " + theEvent.LocationInWindow.ToString ());
             locationInView.X -= (Bounds.Width / 2);
             locationInView.Y -= (nfloat)65.0;
 
             var possiblePosition = map.PointToPosition (locationInView);
 
-            Console.WriteLine ("{0} -> {1}", locationInView, possiblePosition);
+            if (!map.PositionIsValid (possiblePosition)) {
+                //overlay.Highlight = null;
+            } else {
+                overlay.Highlight = possiblePosition;
+            }
         }
 
         public override void DrawRect (CGRect dirtyRect)

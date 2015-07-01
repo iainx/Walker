@@ -267,9 +267,9 @@ namespace Walker.Map
             CoreGraphics.CGSize imageSize = t.Image.Size;
 
             float x = (float)(originPoint.X - (imageSize.Width / 2.0f));
-            float y = (float)(originPoint.Y - 65.0f);
+            float y = (float)originPoint.Y;
 
-            return new CoreGraphics.CGRect (x, y, imageSize.Width, imageSize.Height); 
+            return new CoreGraphics.CGRect (x, -y, imageSize.Width, imageSize.Height); 
         }
     }
 }
