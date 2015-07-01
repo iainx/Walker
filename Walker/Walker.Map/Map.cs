@@ -234,7 +234,7 @@ namespace Walker.Map
         public Position PointToPosition (CoreGraphics.CGPoint point)
         {
             float row, column;
-            float y = (float)Math.Abs (point.Y /*- 65*/);
+            float y = (float)Math.Abs (point.Y + 65);
 
             row = ((y / 25f) - ((float)point.X / 50f)) / 2f;
             column = (((float)point.X / 50f) + (y / 25f)) / 2f;

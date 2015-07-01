@@ -9,10 +9,9 @@ using Walker.Map;
 
 namespace Walker
 {
-    public partial class MapView : AppKit.NSView
+    [Register("MapView")]
+    public class MapView : AppKit.NSView
     {
-        #region Constructors
-
         Map.Map.Position? highlight;
 
         Map.Map map;
@@ -36,7 +35,9 @@ namespace Walker
                 }
             }
         }
-            
+
+        #region Constructors
+               
         // Called when created from unmanaged code
         public MapView (IntPtr handle) : base (handle)
         {
@@ -108,21 +109,28 @@ namespace Walker
             }
         }
 
-        /*
         public override void MouseMoved (NSEvent theEvent)
         {
-            var locationInView = ConvertPointToView (theEvent.LocationInWindow, null);
-            locationInView.X -= (Bounds.Size.Width / 2);
-            locationInView.Y -= (Bounds.Size.Height - 15);
+            if (map == null) {
+                return;
+            }
+
+            var locationInView = ConvertPointFromView (theEvent.LocationInWindow, null);
+
+            Console.WriteLine (locationInView.ToString () + " " + theEvent.LocationInWindow.ToString ());
+            locationInView.X -= (Bounds.Width / 2);
+            locationInView.Y -= (nfloat)65.0;
 
             var possiblePosition = map.PointToPosition (locationInView);
 
             Console.WriteLine ("{0} -> {1}", locationInView, possiblePosition);
-            if (map.PositionIsValid (possiblePosition)) {
-                highlight = possiblePosition;
-                NeedsDisplay = true;
-            }
         }
-        */
+
+        public override void DrawRect (CGRect dirtyRect)
+        {
+            var path = new NSBezierPath ();
+            path.AppendPathWithRect (Bounds);
+            path.Stroke ();
+        }
     }
 }

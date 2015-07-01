@@ -74,15 +74,10 @@
     <Compile Include="Walker.Map\Tile.cs" />
     <Compile Include="Walker.Map\Direction.cs" />
     <Compile Include="MapView.cs" />
-    <Compile Include="MapView.designer.cs">
-      <DependentUpon>MapView.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainWindow.xib" />
     <InterfaceDefinition Include="MainMenu.xib" />
-    <InterfaceDefinition Include="MapView.xib" />
-    <InterfaceDefinition Include="TileView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
