@@ -143,9 +143,6 @@ namespace Walker
 
         public override void DrawRect (CGRect dirtyRect)
         {
-            var path = new NSBezierPath ();
-            path.AppendPathWithRect (Bounds);
-            path.Stroke ();
         }
     }
 }
