@@ -140,9 +140,5 @@ namespace Walker
                 overlay.Highlight = possiblePosition;
             }
         }
-
-        public override void DrawRect (CGRect dirtyRect)
-        {
-        }
     }
 }

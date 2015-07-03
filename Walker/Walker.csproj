@@ -75,6 +75,8 @@
     <Compile Include="Walker.Map\Direction.cs" />
     <Compile Include="MapView.cs" />
     <Compile Include="MapViewOverlay.cs" />
+    <Compile Include="PathNode.cs" />
+    <Compile Include="Path.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainWindow.xib" />

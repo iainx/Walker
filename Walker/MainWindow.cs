@@ -31,5 +31,7 @@ namespace Walker
         {
             base.AwakeFromNib ();
         }
+
+        
     }
 }
