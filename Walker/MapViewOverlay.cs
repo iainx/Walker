@@ -12,6 +12,17 @@ namespace Walker
     [Foundation.Register ("MapViewOverlay")]
     public class MapViewOverlay : AppKit.NSView
     {
+        PathModel paths;
+        public PathModel Paths { 
+            get { 
+                return paths;
+            } 
+            set {
+                paths = value;
+                paths.PathsChanged += (o, e) => NeedsDisplay = true;
+            }
+        }
+        
         public Map.Map Map {
             get;
             set;

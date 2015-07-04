@@ -7,13 +7,23 @@ namespace Walker
         Map.Map map;
         public PathNode[] nodes;
 
+        public delegate void PathChangedHandler (object o, EventArgs args);
+        public event PathChangedHandler Changed;
+
         public Path (Map.Map _map)
         {
             map = _map;
             nodes = new PathNode[map.Width * map.Height];
         }
 
-        public ConnectToNode (Map.Map.Position fromPosition, Map.Map.Position toPosition)
+        protected void OnPathChanged ()
+        {
+            if (Changed != null) {
+                Changed (this, EventArgs.Empty);
+            }
+        }
+
+        public void ConnectToNode (Map.Map.Position fromPosition, Map.Map.Position toPosition)
         {
             PathNode fromNode, toNode;
             Map.Direction fromDirection, toDirection;
@@ -35,6 +45,8 @@ namespace Walker
 
             fromNode.ValidExits |= fromDirection;
             toNode.ValidExits |= toDirection;
+
+            OnPathChanged ();
         }
     }
 }

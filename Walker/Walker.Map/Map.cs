@@ -86,9 +86,9 @@ namespace Walker.Map
             XDocument input = XDocument.Load(filename);
             var mapElement = input.Element ("map");
 
-            string dirname = Path.GetDirectoryName (filename);
+            string dirname = System.IO.Path.GetDirectoryName (filename);
 
-            String mapName = Path.GetFileNameWithoutExtension(filename);
+            String mapName = System.IO.Path.GetFileNameWithoutExtension(filename);
             float mapWidth = Convert.ToSingle(mapElement.Attribute("width").Value);
             float mapHeight = Convert.ToSingle(mapElement.Attribute("height").Value);
             float mapTileWidth = Convert.ToSingle(mapElement.Attribute("tilewidth").Value);
@@ -132,11 +132,11 @@ namespace Walker.Map
                 UInt32 FirstGID = Convert.ToUInt32(elem.Attribute("firstgid").Value);
                 XElement tsElem = elem;
 
-                String tsImageBaseDir = Path.GetDirectoryName(filename);
+                String tsImageBaseDir = System.IO.Path.GetDirectoryName(filename);
                 if (elem.Attribute("source") != null) {
-                    XDocument tsx = XDocument.Load(Path.Combine(tsImageBaseDir, elem.Attribute("source").Value));
+                    XDocument tsx = XDocument.Load(System.IO.Path.Combine(tsImageBaseDir, elem.Attribute("source").Value));
                     tsElem = tsx.Root;
-                    tsImageBaseDir = Path.GetDirectoryName(Path.Combine(tsImageBaseDir, elem.Attribute("source").Value));
+                    tsImageBaseDir = System.IO.Path.GetDirectoryName(System.IO.Path.Combine(tsImageBaseDir, elem.Attribute("source").Value));
                 }
              
                 Int32 tsTileWidth = tsElem.Attribute("tilewidth") == null ? 0 : Convert.ToInt32(tsElem.Attribute("tilewidth").Value);
@@ -155,7 +155,7 @@ namespace Walker.Map
                     float imageHeight = Convert.ToSingle (image.Attribute("height").Value);
                     string sourceFile = image.Attribute("source").Value;
 
-                    string imagePath = Path.Combine (dirname, sourceFile);
+                    string imagePath = System.IO.Path.Combine (dirname, sourceFile);
                     Tile tileObject = new Tile(imagePath, properties) {
                         Size = new CoreGraphics.CGSize (tsTileWidth, tsTileHeight)
                     };

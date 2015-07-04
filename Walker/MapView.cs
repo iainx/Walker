@@ -12,7 +12,7 @@ namespace Walker
     [Register("MapView")]
     public class MapView : AppKit.NSView
     {
-        MapViewOverlay overlay;
+        public MapViewOverlay overlay { get; set; }
 
         Map.Map map;
         public Map.Map Map { 

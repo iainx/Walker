@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Foundation;
 using AppKit;
 
@@ -18,6 +18,8 @@ namespace Walker
             } 
         }
 
+        public PathModel Paths { set { mapView.overlay.Paths = value; } }
+
         public MainWindow (IntPtr handle) : base (handle)
         {
         }
@@ -31,7 +33,5 @@ namespace Walker
         {
             base.AwakeFromNib ();
         }
-
-        
     }
 }

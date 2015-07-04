@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Foundation;
 using AppKit;
@@ -8,15 +9,19 @@ namespace Walker
     public partial class AppDelegate : NSApplicationDelegate
     {
         MainWindowController mainWindowController;
+        PathModel paths;
 
         public AppDelegate ()
         {
+            paths = new PathModel ();
         }
 
         public override void DidFinishLaunching (NSNotification notification)
         {
             mainWindowController = new MainWindowController ();
             mainWindowController.Window.MakeKeyAndOrderFront (this);
+
+            mainWindowController.Paths = paths;
         }
 
         partial void openDialog (NSObject sender)
@@ -32,6 +37,8 @@ namespace Walker
                 ((MainWindow)mainWindowController.Window).Map = map;
             });
         }
+
+
     }
 }
 

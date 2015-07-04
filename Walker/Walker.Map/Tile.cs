@@ -81,7 +81,7 @@ namespace Walker.Map
 
         public Tile (string filename, XElement properties)
         {
-            ImageName = Path.GetFileNameWithoutExtension (filename);
+            ImageName = System.IO.Path.GetFileNameWithoutExtension (filename);
 
             Console.WriteLine ("filename: {0}", filename);
             Image = LoadImageAtCorrectSize (filename);
