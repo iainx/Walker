@@ -15,10 +15,23 @@ namespace Walker
 
             set { 
                 mapView.Map = value;
-            } 
+                if (Paths != null) {
+                    Paths.Map = value;
+                }
+            }
         }
 
-        public PathModel Paths { set { mapView.overlay.Paths = value; } }
+        PathModel paths;
+        public PathModel Paths { 
+            get { 
+                return paths;
+            }
+
+            set { 
+                paths = value;
+                mapView.overlay.Paths = value; 
+            } 
+        }
 
         public MainWindow (IntPtr handle) : base (handle)
         {

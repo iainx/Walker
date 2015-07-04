@@ -8,7 +8,17 @@ namespace Walker
 {
     public partial class MainWindowController : NSWindowController
     {
-        public PathModel Paths { get; set; }
+        PathModel paths;
+        public PathModel Paths {
+            get {
+                return paths;
+            }
+
+            set{
+                paths = value;
+                Window.Paths = value;
+            }
+        }
 
         public MainWindowController (IntPtr handle) : base (handle)
         {
@@ -26,7 +36,6 @@ namespace Walker
         public override void AwakeFromNib ()
         {
             base.AwakeFromNib ();
-            ((MainWindow) Window).Paths = Paths;
         }
 
         public new MainWindow Window {
@@ -36,6 +45,15 @@ namespace Walker
         partial void addNewPath (NSObject sender)
         {
             Paths.CreatePath ();
+        }
+
+        [Export ("validateToolbarItem:")]
+        public bool ValidateToolbarItem(NSToolbarItem item)
+        {
+            if (item.Identifier == "AddPath") {
+                return (Window.Map != null);
+            }
+            return true;
         }
     }
 }

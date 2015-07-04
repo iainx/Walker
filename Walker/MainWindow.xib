@@ -53,7 +53,7 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="A0E054A1-F2FE-41AF-969C-9746070B3A34" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="8as-ZO-TpT">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="7C84737D-2D8B-442C-8ECC-DA4B6F4A8551" label="New Path" paletteLabel="New Path" tag="-1" image="NSAddTemplate" id="Bpu-cJ-ZNW">
+                    <toolbarItem implicitItemIdentifier="7C84737D-2D8B-442C-8ECC-DA4B6F4A8551" explicitItemIdentifier="AddPath" label="New Path" paletteLabel="New Path" tag="-1" image="NSAddTemplate" id="Bpu-cJ-ZNW">
                         <connections>
                             <action selector="addNewPath:" target="-2" id="umv-Z1-9ug"/>
                         </connections>

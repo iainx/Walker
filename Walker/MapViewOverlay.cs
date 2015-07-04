@@ -19,7 +19,14 @@ namespace Walker
             } 
             set {
                 paths = value;
-                paths.PathsChanged += (o, e) => NeedsDisplay = true;
+                if (paths == null) {
+                    return;
+                }
+
+                paths.PathsChanged += (o, e) => {
+                    Console.WriteLine ("Added path");
+                    NeedsDisplay = true;
+                };
             }
         }
         
