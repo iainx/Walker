@@ -9,7 +9,7 @@ namespace Walker.Map
 {
     public class Map
     {
-        public struct Position {
+        public struct Position : IEquatable<Position> {
             public int Row;
             public int Column;
 
@@ -41,6 +41,39 @@ namespace Walker.Map
                 }
 
                 return new Position { Row = Row + dRow, Column = Column + dColumn };
+            }
+
+            public override bool Equals (object o)
+            {
+                if (o == null || GetType() != o.GetType ()) {
+                    return false;
+                }
+
+                Position p = (Position)o;
+
+                return Row == p.Row && Column == p.Column;
+            }
+
+            public bool Equals (Position p)
+            {
+                return Equals ((object)p);
+            }
+
+            public override int GetHashCode ()
+            {
+                // Supports 1,000,000 columns before a has collision
+                var calc = (double)Row + (Column / 1000000.0);
+                return calc.GetHashCode ();
+            }
+
+            public static bool operator ==(Position p1, Position p2) 
+            {
+                return p1.Equals(p2);
+            }
+
+            public static bool operator !=(Position p1, Position p2) 
+            {
+                return !p1.Equals(p2);
             }
         };
 
